@@ -438,13 +438,13 @@ rsync -HPavz -q ${work_dir}/ ${basedir}/root/
 cd ${current_dir}
 mkdir -p u-boot-itb
 cd u-boot-itb
-cp "${basedir}"/root/usr/lib/arm-trusted-firmware/sun50i_a64/bl31.bin .
+#cp "${basedir}"/root/usr/lib/arm-trusted-firmware/sun50i_a64/bl31.bin .
 cp "${basedir}"/root/usr/lib/u-boot/pinebook/* .
-BL31=bl31.bin "${basedir}"/root/usr/bin/mksunxi_fit_atf *.dtb > u-boot.its
-mkimage -f u-boot.its u-boot.itb
+#BL31=bl31.bin "${basedir}"/root/usr/bin/mksunxi_fit_atf *.dtb > u-boot.its
+#mkimage -f u-boot.its u-boot.itb
 
 dd conv=fsync,notrunc if=sunxi-spl.bin of=${loopdevice} bs=8k seek=1
-dd conv=notrunc if=u-boot.itb of=${loopdevice} bs=8k seek=5
+dd conv=notrunc if=u-boot-sunxi-with-spl.fit.itb of=${loopdevice} bs=8k seek=5
 
 # Unmount partitions
 sync

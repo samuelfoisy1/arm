@@ -239,7 +239,7 @@ eatmydata apt-get install -y \$aptops ${desktop} ${extras} ${tools} || eatmydata
 eatmydata apt-get install -y \$aptops --autoremove systemd-timesyncd || eatmydata apt-get --yes --fix-broken install
 
 # Install the kernel packages
-echo "deb http://http.re4son-kernel.com/re4son kali-pi-next main" > /etc/apt/sources.list.d/re4son.list
+echo "deb http://http.re4son-kernel.com/re4son kali-pi main" > /etc/apt/sources.list.d/re4son.list
 wget -qO /etc/apt/trusted.gpg.d/kali_pi-archive-keyring.gpg https://re4son-kernel.com/keys/http/kali_pi-archive-keyring.gpg
 eatmydata apt-get update
 eatmydata apt-get install --yes --allow-change-held-packages -o dpkg::options::=--force-confnew kalipi-kernel kalipi-bootloader kalipi-re4son-firmware kalipi-kernel-headers

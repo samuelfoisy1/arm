@@ -280,6 +280,9 @@ systemctl enable hciuart
 # since it fails to do so properly in a chroot.
 systemctl enable smi-hack
 
+# Copy script rpi-resizerootfs
+install -m755 /bsp/scripts/rpi-resizerootfs /usr/sbin/
+
 # Resize FS on first run (hopefully)
 systemctl enable rpi-resizerootfs
 

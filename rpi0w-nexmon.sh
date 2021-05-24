@@ -260,19 +260,13 @@ echo "T0:23:respawn:/sbin/agetty -L ttyAMA0 115200 vt100" >> /etc/inittab
 # https://github.com/offensive-security/kali-arm-build-scripts/issues/151
 echo "ttyGS0" >> /etc/securetty
 
-# Re4son's rpi-tft configurator
-wget https://raw.githubusercontent.com/Re4son/RPi-Tweaks/master/kalipi-tft-config/kalipi-tft-config -O /usr/bin/kalipi-tft-config
-chmod 755 /usr/bin/kalipi-tft-config
-
-# Re4son's kalipi-config
-wget https://raw.githubusercontent.com/Re4son/RPi-Tweaks/master/kalipi-config/kalipi-config -O /usr/bin/kalipi-config
-chmod 755 /usr/bin/kalipi-config
 
 # Install the kernel packages
+# We install the kalipi-config and kalipi-tft-config packages here so that it pulls in the rpi userland as well.
 echo "deb http://http.re4son-kernel.com/re4son kali-pi main" > /etc/apt/sources.list.d/re4son.list
 wget -qO /etc/apt/trusted.gpg.d/kali_pi-archive-keyring.gpg https://re4son-kernel.com/keys/http/kali_pi-archive-keyring.gpg
 eatmydata apt-get update
-eatmydata apt-get install --yes --allow-change-held-packages kalipi-kernel kalipi-bootloader kalipi-re4son-firmware kalipi-kernel-headers
+eatmydata apt-get install --yes --allow-change-held-packages kalipi-kernel kalipi-bootloader kalipi-re4son-firmware kalipi-kernel-headers kalipi-config kalipi-tft-config
 
 # Bluetooth enabling
 install -m644 /bsp/bluetooth/rpi/50-bluetooth-hci-auto-poweron.rules /etc/udev/rules.d/

@@ -263,15 +263,12 @@ install -m755 /bsp/bluetooth/rpi/btuart /usr/bin/
 # Copy in the bluetooth firmware
 install -m644 /bsp/firmware/rpi/BCM43430A1.hcd -D /lib/firmware/brcm/BCM43430A1.hcd
 
-# Re4son's rpi-tft configurator
-wget -q ${githubraw}/Re4son/RPi-Tweaks/master/kalipi-tft-config/kalipi-tft-config -O /usr/bin/kalipi-tft-config
-chmod 755 /usr/bin/kalipi-tft-config
-
 # Install the kernel packages
+# We install the kalipi-config and kalipi-tft-config packages here so that it pulls in the rpi userland as well.
 echo "deb http://http.re4son-kernel.com/re4son kali-pi main" > /etc/apt/sources.list.d/re4son.list
 wget -qO /etc/apt/trusted.gpg.d/kali_pi-archive-keyring.gpg https://re4son-kernel.com/keys/http/kali_pi-archive-keyring.gpg
 eatmydata apt-get update
-eatmydata apt-get install --yes --allow-change-held-packages -o dpkg::options::=--force-confnew kalipi-kernel kalipi-bootloader kalipi-re4son-firmware kalipi-kernel-headers
+eatmydata apt-get install --yes --allow-change-held-packages -o dpkg::options::=--force-confnew kalipi-kernel kalipi-bootloader kalipi-re4son-firmware kalipi-kernel-headers kalipi-config kalipi-tft-config
 
 # Regenerated the shared-mime-info database on the first boot
 # since it fails to do so properly in a chroot

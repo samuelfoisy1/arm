@@ -260,7 +260,7 @@ install -m644 /bsp/udev/99-vchiq-permissions.rules /etc/udev/rules.d/
 echo "deb http://http.re4son-kernel.com/re4son kali-pi main" > /etc/apt/sources.list.d/re4son.list
 wget -qO /etc/apt/trusted.gpg.d/kali_pi-archive-keyring.gpg https://re4son-kernel.com/keys/http/kali_pi-archive-keyring.gpg
 eatmydata apt-get update
-eatmydata apt-get install --yes --allow-change-held-packages -o dpkg::options::=--force-confnew kalipi-kernel kalipi-bootloader kalipi-re4son-firmware kalipi-kernel-headers kalipi-config kalipi-tft-config bluez bluez-firmware pi-bluetooth
+eatmydata apt-get install --yes --allow-change-held-packages -o dpkg::options::=--force-confnew kalipi-kernel kalipi-bootloader kalipi-re4son-firmware kalipi-kernel-headers kalipi-config kalipi-tft-config bluez bluez-firmware firmware-raspberry
 
 # Regenerated the shared-mime-info database on the first boot
 # since it fails to do so properly in a chroot

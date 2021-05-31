@@ -165,6 +165,11 @@ deb ${mirror} ${suite} ${components//,/ }
 #deb-src ${mirror} ${suite} ${components//,/ }
 EOF
 
+# Needed for pi-bluetooth package
+cat << EOF > ${work_dir}/etc/apt/sources.list.d/kali-experimental.list
+deb http://http.kali.org/kali kali-experimental main
+EOF
+
 # Set hostname
 echo "${hostname}" > ${work_dir}/etc/hostname
 
@@ -244,6 +249,7 @@ echo "deb http://http.re4son-kernel.com/re4son kali-pi main" > /etc/apt/sources.
 wget -qO /etc/apt/trusted.gpg.d/kali_pi-archive-keyring.gpg https://re4son-kernel.com/keys/http/kali_pi-archive-keyring.gpg
 eatmydata apt-get update
 eatmydata apt-get install --yes --allow-change-held-packages -o dpkg::options::=--force-confnew kalipi-kernel kalipi-bootloader kalipi-re4son-firmware kalipi-kernel-headers kalipi-config kalipi-tft-config bluez bluez-firmware firmware-raspberry
+eatmydata apt-get install --yes \$aptops pi-bluetooth/kali-experimental
 
 eatmydata apt-get --yes --allow-change-held-packages autoremove
 

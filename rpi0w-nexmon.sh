@@ -174,7 +174,7 @@ EOF
 
 # Needed for pi-bluetooth package
 cat << EOF > ${work_dir}/etc/apt/sources.list.d/kali-experimental.list
-deb http://http.kali.org/kali kali-experimental main
+deb http://http.kali.org/kali kali-experimental main contrib non-free
 EOF
 
 # Set hostname

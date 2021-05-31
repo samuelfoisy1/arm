@@ -28,7 +28,7 @@ bootsize="128"
 # Select compression, xz or none
 compress="xz"
 # Choose filesystem format to format ( ext3 or ext4 )
-fstype="ext3"
+fstype="ext4"
 # If you have your own preferred mirrors, set them here.
 mirror=${mirror:-"http://http.kali.org/kali"}
 # Gitlab url Kali repository
@@ -243,7 +243,7 @@ eatmydata apt-get install -y \$aptops --autoremove systemd-timesyncd || eatmydat
 echo "deb http://http.re4son-kernel.com/re4son kali-pi main" > /etc/apt/sources.list.d/re4son.list
 wget -qO /etc/apt/trusted.gpg.d/kali_pi-archive-keyring.gpg https://re4son-kernel.com/keys/http/kali_pi-archive-keyring.gpg
 eatmydata apt-get update
-eatmydata apt-get install --yes --allow-change-held-packages -o dpkg::options::=--force-confnew kalipi-kernel kalipi-bootloader kalipi-re4son-firmware kalipi-kernel-headers kalipi-config kalipi-tft-config
+eatmydata apt-get install --yes --allow-change-held-packages -o dpkg::options::=--force-confnew kalipi-kernel kalipi-bootloader kalipi-re4son-firmware kalipi-kernel-headers kalipi-config kalipi-tft-config bluez bluez-firmware pi-bluetooth
 
 eatmydata apt-get --yes --allow-change-held-packages autoremove
 
@@ -254,13 +254,6 @@ install -m755 /bsp/scripts/monstart /usr/bin/
 install -m755 /bsp/scripts/monstop /usr/bin/
 install -m755 /bsp/scripts/rpi-resizerootfs /usr/sbin/
 
-# Bluetooth enabling
-install -m644 /bsp/bluetooth/rpi/99-com.rules /etc/udev/rules.d/
-install -m644 /bsp/bluetooth/rpi/hciuart.service /etc/systemd/system/
-install -m755 /bsp/bluetooth/rpi/btuart /usr/bin/
-# Copy in the bluetooth firmware
-install -m644 /bsp/firmware/rpi/BCM43430A1.hcd /lib/firmware/brcm/
-
 # Regenerated the shared-mime-info database on the first boot
 # since it fails to do so properly in a chroot.
 systemctl enable smi-hack
@@ -270,9 +263,6 @@ systemctl enable rpi-resizerootfs
 
 # Generate SSH host keys on first run
 systemctl enable regenerate_ssh_host_keys
-
-# Enable hciuart for bluetooth device
-systemctl enable hciuart
 
 # Enable copying of user wpa_supplicant.conf file
 install -m755 /bsp/scripts/copy-user-wpasupplicant.sh /usr/bin

@@ -6,7 +6,7 @@ DefaultDependencies=no
 [Service]
 Type=oneshot
 TimeoutSec=infinity
-ExecStart=/usr/sbin/rpi-resizerootfs
+ExecStart=/usr/bin/kalipi-config --expand-rootfs
 ExecStart=/bin/systemctl --no-reload disable %n
 
 [Install]

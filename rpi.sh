@@ -28,7 +28,7 @@ bootsize="128"
 # Select compression, xz or none
 compress="xz"
 # Choose filesystem format to format ( ext3 or ext4 )
-fstype="ext3"
+fstype="ext4"
 # If you have your own preferred mirrors, set them here.
 mirror=${mirror:-"http://http.kali.org/kali"}
 # Gitlab url Kali repository

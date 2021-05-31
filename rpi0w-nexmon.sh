@@ -28,7 +28,7 @@ bootsize="128"
 # Select compression, xz or none
 compress="xz"
 # Choose filesystem format to format ( ext3 or ext4 )
-fstype="ext3"
+fstype="ext4"
 # If you have your own preferred mirrors, set them here.
 mirror=${mirror:-"http://http.kali.org/kali"}
 # Gitlab url Kali repository
@@ -266,13 +266,7 @@ echo "ttyGS0" >> /etc/securetty
 echo "deb http://http.re4son-kernel.com/re4son kali-pi main" > /etc/apt/sources.list.d/re4son.list
 wget -qO /etc/apt/trusted.gpg.d/kali_pi-archive-keyring.gpg https://re4son-kernel.com/keys/http/kali_pi-archive-keyring.gpg
 eatmydata apt-get update
-eatmydata apt-get install --yes --allow-change-held-packages kalipi-kernel kalipi-bootloader kalipi-re4son-firmware kalipi-kernel-headers kalipi-config kalipi-tft-config
-
-# Bluetooth enabling
-install -m644 /bsp/bluetooth/rpi/50-bluetooth-hci-auto-poweron.rules /etc/udev/rules.d/
-install -m644 /bsp/bluetooth/rpi/99-com.rules /etc/udev/rules.d/
-# Copy in the bluetooth firmware
-install -m644 /bsp/firmware/rpi/BCM43430A1.hcd /lib/firmware/brcm/
+eatmydata apt-get install --yes --allow-change-held-packages kalipi-kernel kalipi-bootloader kalipi-re4son-firmware kalipi-kernel-headers kalipi-config kalipi-tft-config bluez bluez-firmware pi-bluetooth
 
 # Regenerated the shared-mime-info database on the first boot
 # since it fails to do so properly in a chroot.
@@ -294,9 +288,6 @@ systemctl enable wpa_supplicant
 
 # Enable... enabling ssh by putting ssh or ssh.txt file in /boot
 systemctl enable enable-ssh
-
-# Install pi-bluetooth deb package from re4son
-dpkg --force-all -i /bsp/bluetooth/rpi/pi-bluetooth+re4son_2.2_all.deb
 
 # Turn off kernel dmesg showing up in console since rpi0 only uses console
 echo "#!/bin/sh -e" > /etc/rc.local

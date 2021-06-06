@@ -172,11 +172,6 @@ deb ${mirror} ${suite} ${components//,/ }
 #deb-src ${mirror} ${suite} ${components//,/ }
 EOF
 
-# Needed for pi-bluetooth package
-cat << EOF > ${work_dir}/etc/apt/sources.list.d/kali-experimental.list
-deb http://http.kali.org/kali kali-experimental main contrib non-free
-EOF
-
 # Set hostname
 echo "${hostname}" > ${work_dir}/etc/hostname
 
@@ -272,7 +267,7 @@ echo "deb http://http.re4son-kernel.com/re4son kali-pi main" > /etc/apt/sources.
 wget -qO /etc/apt/trusted.gpg.d/kali_pi-archive-keyring.gpg https://re4son-kernel.com/keys/http/kali_pi-archive-keyring.gpg
 eatmydata apt-get update
 eatmydata apt-get install --yes --allow-change-held-packages kalipi-kernel kalipi-bootloader kalipi-re4son-firmware kalipi-kernel-headers kalipi-config kalipi-tft-config bluez bluez-firmware
-eatmydata apt-get install --yes \$aptops pi-bluetooth/kali-experimental firmware-raspberry/kali-experimental
+eatmydata apt-get install --yes \$aptops pi-bluetooth firmware-raspberry
 
 # Regenerated the shared-mime-info database on the first boot
 # since it fails to do so properly in a chroot.

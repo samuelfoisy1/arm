@@ -17,7 +17,7 @@ machine=$(dbus-uuidgen)
 # Custom hostname variable
 hostname=${2:-kali}
 # Custom image file name variable - MUST NOT include .img at the end.
-imagename=${3:-kali-linux-$1-rpi4-nexmon-64}
+imagename=${3:-labos-$1-rpi4-nexmon-64}
 # Suite to use, valid options are:
 # kali-rolling, kali-dev, kali-bleeding-edge, kali-dev-only, kali-experimental, kali-last-snapshot
 suite=${suite:-"kali-rolling"}
@@ -32,7 +32,7 @@ fstype="ext4"
 # If you have your own preferred mirrors, set them here.
 mirror=${mirror:-"http://http.kali.org/kali"}
 # Gitlab url Kali repository
-kaligit="https://gitlab.com/kalilinux"
+labosgit="https://github.com/sfalabs/labos"
 # Github raw url
 githubraw="https://raw.githubusercontent.com"
 
@@ -52,7 +52,7 @@ fi
 # Check exist bsp directory.
 if [ ! -e "bsp" ]; then
   echo "Error: missing bsp directory structure"
-  echo "Please clone the full repository ${kaligit}/build-scripts/kali-arm"
+  echo "Please clone the full repository ${labosgit}/build-scripts/kali-arm"
   exit 255
 fi
 
@@ -76,12 +76,12 @@ else
 fi
 
 components="main,contrib,non-free"
-arm="kali-linux-arm ntpdate"
+arm="labos-arm ntpdate"
 base="apt-transport-https apt-utils bash-completion console-setup dialog e2fsprogs ifupdown initramfs-tools inxi iw man-db mlocate netcat-traditional net-tools parted pciutils psmisc rfkill screen tmux unrar usbutils wget whiptail zerofree"
 desktop="kali-desktop-xfce kali-root-login xserver-xorg-video-fbdev xserver-xorg-input-evdev xserver-xorg-input-synaptics"
-tools="kali-linux-default"
+tools="labos-default"
 services="apache2 atftpd"
-extras="alsa-utils bc bison crda bluez bluez-firmware i2c-tools kali-linux-core libnss-systemd libssl-dev pkg-config python3-configobj python3-pip python3-requests python3-rpi.gpio python3-smbus triggerhappy"
+extras="alsa-utils bc bison crda bluez bluez-firmware i2c-tools labos-core libnss-systemd libssl-dev pkg-config python3-configobj python3-pip python3-requests python3-rpi.gpio python3-smbus triggerhappy"
 
 packages="${arm} ${base} ${services}"
 
@@ -232,7 +232,7 @@ eatmydata apt-get install -y \$aptops ${packages} || eatmydata apt-get --yes --f
 eatmydata apt-get install -y \$aptops ${packages} || eatmydata apt-get --yes --fix-broken install
 eatmydata apt-get install -y \$aptops ${desktop} ${extras} ${tools} || eatmydata apt-get --yes --fix-broken install
 eatmydata apt-get install -y \$aptops ${desktop} ${extras} ${tools} || eatmydata apt-get --yes --fix-broken install
-# We want systemd-timesyncd not sntp which gets pulled in by something in kali-linux-default
+# We want systemd-timesyncd not sntp which gets pulled in by something in labos-default
 eatmydata apt-get install -y \$aptops --autoremove systemd-timesyncd
 
 # Linux console/Keyboard configuration
